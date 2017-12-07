@@ -3,7 +3,7 @@
 
 Simple module to calculate `Authorization` header for Amazon AWS REST requests.
 
-简单的模块来计算Amazon AWS REST请求的授权头。
+简单的模块为Amazon AWS REST计算`Authorization`头部。
 
 
 Simple it is:
