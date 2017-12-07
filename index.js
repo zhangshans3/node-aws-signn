@@ -10,7 +10,7 @@ function AWSRestSigner(credentials) {
 }
 
 AWSRestSigner.subResources = ['acl', 'lifecycle', 'location', 'logging', 'notification', 'partNumber', 'policy', 'requestPayment', 'torrent', 'uploadId', 'uploads', 'versionId', 'versioning', 'versions', 'website'];
-
+                             /*“acl”，“生命周期”， “位置”，      “日志”，    “通知”，    “零件编号”，   “政策”，  “请求付款”，     “流”，     “上传ID”，   “上传”  ，“版本Id”    ，“版本”，      “版本”，    “网站”*/
 AWSRestSigner.prototype.canonizeAwzHeaders = function(xAmzHeaders) {
 	if (xAmzHeaders) {
 		var lcHeaders = {};
