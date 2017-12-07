@@ -1,5 +1,5 @@
 # node-aws-sign
-/*aws是业务流程管理开发平台,node-业务流程管理开发节点 */
+/*aws是业务流程管理开发平台,node-业务流程管理开发标志 */
 
 Simple module to calculate `Authorization` header for Amazon AWS REST requests.
 
