@@ -1,12 +1,12 @@
 var 
-	crypto = require('crypto'),
-	querystring = require('querystring');
+	crypto = require('crypto'),//加密模块
+	querystring = require('querystring');//查询字符串模块
 
 
 function AWSRestSigner(credentials) {
-	this.accessKeyId = credentials.accessKeyId; 
-	this.secretAccessKey = credentials.secretAccessKey; 
-	this.debug = false;
+	this.accessKeyId = credentials.accessKeyId; //AWS 访问密钥 ID
+	this.secretAccessKey = credentials.secretAccessKey; //AWS 秘密访问密钥
+	this.debug = false;//调试
 }
 
 AWSRestSigner.subResources = ['acl', 'lifecycle', 'location', 'logging', 'notification', 'partNumber', 'policy', 'requestPayment', 'torrent', 'uploadId', 'uploads', 'versionId', 'versioning', 'versions', 'website'];
@@ -15,7 +15,8 @@ AWSRestSigner.prototype.canonizeAwzHeaders = function(xAmzHeaders) {
 	if (xAmzHeaders) {
 		var lcHeaders = {};
 		Object.keys(xAmzHeaders).forEach(function(header) {
-			var h = header.toLowerCase();
+			//对xAmzHeaders可枚举属性和方法的名称进行遍历
+			var h = header.toLowerCase();//转换为小写
 			if (h!='x-amz-date')  {
 				lcHeaders[h]=xAmzHeaders[header];
 			}
@@ -24,11 +25,11 @@ AWSRestSigner.prototype.canonizeAwzHeaders = function(xAmzHeaders) {
 		return Object.keys(lcHeaders)
 			.map(function(header) {
 				return header.toLowerCase();
-			})
-			.sort()
+			})//遍历
+			.sort()//排序
 			.map(function(header) {
 				return header+':'+lcHeaders[header]+"\n";
-			})
+			})//遍历
 			.join('');
 	} else { 
 		return '';
@@ -36,16 +37,21 @@ AWSRestSigner.prototype.canonizeAwzHeaders = function(xAmzHeaders) {
 }
 
 AWSRestSigner.prototype.extractSubResources = function(queryString) {
+//提取子资源
 	var query = querystring.parse(queryString);
+	//将字符串转成对象
 
 	var subresources = [];
 	Object.keys(query).forEach(function(param) {
 		if (AWSRestSigner.subResources.indexOf(param)>=0) {
+			//param中每一位都大于等于0；
 			subresources.push(param);
+			//在subresources末尾添加param；
 		}
 	});
 
 	if (subresources.length) {
+		//subresources 不为空
 		subresources = subresources.sort();
 		var queryToSign = subresources.map(function(param) {
 			var result = param;
@@ -67,9 +73,9 @@ AWSRestSigner.prototype.sign = function(opts) {
 		path = opts.path || opts.pathname,
 		xAmzHeaders = {},
 		date, contentType, contentMd5,
-		bucket = "";
+		bucket = "";//桶
 
-	var _match = host.match(/^(.*)\.s3\.amazonaws\.com/); 
+	var _match = host.match(/^(.*)\.s3\.amazonaws\.com/); //检索
 	if (_match) {
 		bucket = _match[1];
 	} else {
@@ -101,7 +107,7 @@ AWSRestSigner.prototype.sign = function(opts) {
 	});
 
 	if (!date) {
-		date = new Date().toUTCString();
+		date = new Date().toUTCString();//根据世界时 (UTC) 把 Date 对象转换为字符串，并返回结果。
 		opts.headers.date = date;
 	}
 	
@@ -110,16 +116,17 @@ AWSRestSigner.prototype.sign = function(opts) {
 
 
 AWSRestSigner.prototype._sign = function(method, bucket, path, date, contentType, contentMd5, xAmzHeaders) {
-	var qPos = path.indexOf('?'), queryToSign='';
+	var qPos = path.indexOf('?'), //返回第一次出现？的位置
+	    queryToSign='';
 	if (qPos>=0) {
-		var queryPart = path.substr(qPos+1, path.length);
-		path = path.substr(0,qPos);
-		queryToSign = this.extractSubResources(queryPart);
+		var queryPart = path.substr(qPos+1, path.length);//截取？之后内容
+		path = path.substr(0,qPos);//截取？及之前内容
+		queryToSign = this.extractSubResources(queryPart);//提取子资源
 	}
 
 	var canonicalizedAmzHeaders = this.canonizeAwzHeaders(xAmzHeaders);
 
-	var canonicalizedResource = '';
+	var canonicalizedResource = '';//规范化资源
 	if (bucket!='') {
 		canonicalizedResource += '/'+bucket;
 	}
@@ -151,4 +158,5 @@ AWSRestSigner.prototype._sign = function(method, bucket, path, date, contentType
 }
 
 module.exports = AWSRestSigner;
+//暴露模块
 
