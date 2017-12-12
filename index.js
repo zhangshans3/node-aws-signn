@@ -21,6 +21,8 @@ AWSRestSigner.prototype.canonizeAwzHeaders = function(xAmzHeaders) {
 				lcHeaders[h]=xAmzHeaders[header];
 			}
 		});
+		//创建lcHeaders;对xAmzHeader可枚举属性和方法的名称进行遍历，并将其转换为小写复制给h，如果h不是x-amz-date，
+		//则将xAmzHeaders[header]赋值给lcHeaders[h]
 
 		return Object.keys(lcHeaders)
 			.map(function(header) {
