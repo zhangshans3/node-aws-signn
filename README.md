@@ -11,6 +11,7 @@ Simple it is:
 简单的是:
 ```javascript
 var AwsSign = require('aws-sign');
+/*创建一个用户*/
 var signer = new AwsSign({ 
 	accessKeyId: 'AKIAIOSFODNN7EXAMPLE',
 	secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
