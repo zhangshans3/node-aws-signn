@@ -8,13 +8,14 @@ var credentials = {
 };
 
 // main test suite as per http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAuthentication.html#ConstructingTheAuthenticationHeader
+//主要测试套件 http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAuthentication.html#ConstructingTheAuthenticationHeader
 exports['main'] = function(test) {
 	test.expect(9);
 
 	var signer = new AwsSign(credentials);
 	var opts;
 
-	// Example Object GET
+	// Example Object GET  对象GET
 	opts = {
 		method: 'GET', 
 		host: 'johnsmith.s3.amazonaws.com',
@@ -26,7 +27,7 @@ exports['main'] = function(test) {
 	signer.sign(opts);
 	test.equal(opts.headers["Authorization"], 'AWS AKIAIOSFODNN7EXAMPLE:bWq2s1WEIj+Ydj0vQ697zp+IXMU=');
 
-	// Example Object PUT
+	// Example Object PUT  对象 PUT
 	opts = {
 		method: 'PUT', 
 		host: 'johnsmith.s3.amazonaws.com',
@@ -39,7 +40,7 @@ exports['main'] = function(test) {
 	signer.sign(opts);
 	test.equal(opts.headers["Authorization"], 'AWS AKIAIOSFODNN7EXAMPLE:MyyxeRY7whkBe+bq8fHCL/2kKUg=');
 
-	// Example List
+	// Example List  列表
 	opts = {
 		method: 'GET', 
 		host: 'johnsmith.s3.amazonaws.com',
@@ -51,7 +52,7 @@ exports['main'] = function(test) {
 	signer.sign(opts);
 	test.equal(opts.headers["Authorization"], 'AWS AKIAIOSFODNN7EXAMPLE:htDYFYduRNen8P9ZfE/s9SuKy0U=');
 
-	// Example Fetch
+	// Example Fetch  取回
 	opts = {
 		method: 'GET', 
 		host: 'johnsmith.s3.amazonaws.com',
@@ -63,7 +64,7 @@ exports['main'] = function(test) {
 	signer.sign(opts);
 	test.equal(opts.headers["Authorization"], 'AWS AKIAIOSFODNN7EXAMPLE:c2WLPFtWHVgbEmeEG93a4cG37dM=');
 
-	// Example List All My Buckets
+	// Example List All My Buckets  列出我的所有存储桶
 	opts = {
 		method: 'GET',
 		bucket: '',
@@ -75,8 +76,8 @@ exports['main'] = function(test) {
 	signer.sign(opts);
 	test.equal(opts.headers["Authorization"], 'AWS AKIAIOSFODNN7EXAMPLE:qGdzdERIC03wnaRNKh6OqZehG9s=');
 
-	// Example Delete
-	// The following is deliberately left here to illustrate that it won't work (see README.md):
+	// Example Delete  删除
+	// The following is deliberately left here to illustrate that it won't work (see README.md):下面代码是错的
 	opts = {
 		method: 'DELETE', 
 		host: 'johnsmith.s3.amazonaws.com',
@@ -89,7 +90,7 @@ exports['main'] = function(test) {
 	signer.sign(opts);
 	test.ok(opts.headers["Authorization"]!='AWS AKIAIOSFODNN7EXAMPLE:9b2sXq0KfxsxHtdZkzx/9Ngqyh8=');
 
-	// Example Unicode Keys
+	// Example Unicode Keys  Unicode 密钥
 	opts = {
 		method: 'GET', 
 		host: 'dictionary.s3.amazonaws.com',
@@ -118,7 +119,7 @@ exports['main'] = function(test) {
 	signer.sign(opts);
 	test.equal(opts.headers["Authorization"], 'AWS AKIAIOSFODNN7EXAMPLE:ilyl83RwaSoYIEdixDQcA4OnAnc=');
 
-	// No date specified
+	// No date specified  没有指定日期
 	opts = {
 		method: 'PUT', 
 		host: 'johnsmith.s3.amazonaws.com',
