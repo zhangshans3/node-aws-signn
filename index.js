@@ -12,7 +12,7 @@ function AWSRestSigner(credentials) {
 AWSRestSigner.subResources = ['acl', 'lifecycle', 'location', 'logging', 'notification', 'partNumber', 'policy', 'requestPayment', 'torrent', 'uploadId', 'uploads', 'versionId', 'versioning', 'versions', 'website'];
                              /*“acl”，“生命周期”， “位置”，      “日志”，    “通知”，    “零件编号”，   “政策”，  “请求付款”，     “流”，     “上传ID”，   “上传”  ，“版本Id”    ，“版本”，      “版本”，    “网站”*/
 AWSRestSigner.prototype.canonizeAwzHeaders = function(xAmzHeaders) {
-	if (xAmzHeaders) {
+	if (xAmzHeaders) {//如果参数不为空
 		var lcHeaders = {};
 		Object.keys(xAmzHeaders).forEach(function(header) {
 			//对xAmzHeaders可枚举属性和方法的名称进行遍历
@@ -27,12 +27,12 @@ AWSRestSigner.prototype.canonizeAwzHeaders = function(xAmzHeaders) {
 		return Object.keys(lcHeaders)
 			.map(function(header) {
 				return header.toLowerCase();
-			})//遍历
-			.sort()//排序
+			})//遍历，转换为小写
+			.sort()//进行排序
 			.map(function(header) {
 				return header+':'+lcHeaders[header]+"\n";
-			})//遍历
-			.join('');
+			})//遍历，header:lcHeaders[header]
+			.join('');//用空格进行分隔转换为字符串
 	} else { 
 		return '';
 	}
@@ -52,13 +52,13 @@ AWSRestSigner.prototype.extractSubResources = function(queryString) {
 		}
 	});
 
-	if (subresources.length) {
-		//subresources 不为空
-		subresources = subresources.sort();
+	if (subresources.length) {//subresources 不为空
+		
+		subresources = subresources.sort();//对subresources进行排序
 		var queryToSign = subresources.map(function(param) {
 			var result = param;
 			if (query[param]!='') {
-				result+="="+query[param];
+				result+="="+query[param];//如果query[param]不为空，则result=query[param]
 			}
 			return result;
 		});
@@ -77,15 +77,15 @@ AWSRestSigner.prototype.sign = function(opts) {
 		date, contentType, contentMd5,
 		bucket = "";//桶
 
-	var _match = host.match(/^(.*)\.s3\.amazonaws\.com/); //检索
-	if (_match) {
+	var _match = host.match(/^(.*)\.s3\.amazonaws\.com/); //用正则表达式进行检索
+	if (_match) {//检索出来的值不为空
 		bucket = _match[1];
-	} else {
+	} else {//没有检索到符合条件的
 		bucket = host;
 	}
 
 	if (!opts.headers) {
-		opts.headers = {};
+		opts.headers = {};//如果为空
 	}
 
 	Object.keys(opts.headers).forEach(function(key) {
@@ -108,7 +108,7 @@ AWSRestSigner.prototype.sign = function(opts) {
 		}
 	});
 
-	if (!date) {
+	if (!date) {//如果没有设置data，则为用户添加。
 		date = new Date().toUTCString();//根据世界时 (UTC) 把 Date 对象转换为字符串，并返回结果。
 		opts.headers.date = date;
 	}
