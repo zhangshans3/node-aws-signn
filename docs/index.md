@@ -124,3 +124,6 @@ After:
 https://github.com/zhangshans3/node-aws-signn/blob/master/index.js
 #### test
 https://github.com/zhangshans3/node-aws-signn/blob/master/test/SignTest.js#L11
+
+
+
