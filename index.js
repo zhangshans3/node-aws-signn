@@ -55,6 +55,7 @@ AWSRestSigner.prototype.extractSubResources = function(queryString) {
 			//在subresources末尾添加param；
 		}
 	});
+	
 
 	if (subresources.length) {//subresources 不为空
 		
@@ -70,6 +71,8 @@ AWSRestSigner.prototype.extractSubResources = function(queryString) {
 	}
 
 	return '';
+	
+	
 }
 
 AWSRestSigner.prototype.sign = function(opts) {
