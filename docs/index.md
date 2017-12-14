@@ -10,6 +10,9 @@
 然后，它会将计算出的签名与请求者提供的签名进行对比。如果两个签名相匹配，则系统认为请求者必须拥有对 AWS 秘密访问密钥的访问权限，
 因此充当向其颁发密钥的委托人的颁发机构。如果两个签名不匹配，那么请求将被丢弃，同时系统将返回错误消息。
 
+#### 参考文档
+http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/RESTAuthentication.html
+
 # node-aws-sign
 
 Simple module to calculate `Authorization` header for Amazon AWS REST requests.
@@ -116,4 +119,7 @@ After:
 	signer.sign(opts);
 	http.request(opts);
 ```
-
+#### index.js
+https://github.com/zhangshans3/node-aws-signn/blob/master/index.js
+#### test
+https://github.com/zhangshans3/node-aws-signn/blob/master/test/SignTest.js#L11
