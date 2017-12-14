@@ -65,13 +65,19 @@ Node.js没有遗留问题;-)因此，没有必要为旧的软件支持Amazon API
 //所有以“x-amz-”为前缀的HTTP Header被称为CanonicalizedHeaders。
 
 
-/*CanonicalizedAmzHeaders 步骤
-1	将每个 HTTP 标头名称转换为小写。例如，“X-Amz-Date”改为“x-amz-date”。
-2	根据标头名称按字典顺序排列标头集。
-3	按照 RFC 2616 中第 4.2 节中的规定，将相同名称的标头字段合并为一个“header-name:comma-separated-value-list”对，各值之间不留空格。例如，可以将元数据标头“x-amz-meta-username: fred”和“x-amz-meta-username: barney”合并为单个标头“x-amz-meta-username: fred,barney”。
-4	通过将折叠空格 (包括换行符) 替换为单个空格，“展开”跨多个行的长标头 (按照 RFC 2616 中第 4.2 节允许的方式)。
-5	删除标头中冒号周围的空格。例如，标头“x-amz-meta-username: fred,barney”改为“x-amz-meta-username:fred,barney”。
-6	最后，请向生成的列表中的每个标准化标头附加换行字符 (U+000A)。通过将此列表中所有的标头规范化为单个字符串，构建 CanonicalizedResource 元素。*/
+//CanonicalizedAmzHeaders 步骤
+
+//1	将每个 HTTP 标头名称转换为小写。例如，“X-Amz-Date”改为“x-amz-date”。
+
+//2	根据标头名称按字典顺序排列标头集。
+
+//3	按照 RFC 2616 中第 4.2 节中的规定，将相同名称的标头字段合并为一个“header-name:comma-separated-value-list”对，各值之间不留空格。例如，可以将元数据标头“x-amz-meta-username: fred”和“x-amz-meta-username: barney”合并为单个标头“x-amz-meta-username: fred,barney”。
+
+//4	通过将折叠空格 (包括换行符) 替换为单个空格，“展开”跨多个行的长标头 (按照 RFC 2616 中第 4.2 节允许的方式)。
+
+//5	删除标头中冒号周围的空格。例如，标头“x-amz-meta-username: fred,barney”改为“x-amz-meta-username:fred,barney”。
+
+//6	最后，请向生成的列表中的每个标准化标头附加换行字符 (U+000A)。通过将此列表中所有的标头规范化为单个字符串，构建 CanonicalizedResource 元素。
 
 `x-amz-date` substitution is not supported because Node's http module has no problems setting `Date` header.
 
