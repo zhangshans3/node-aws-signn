@@ -23,7 +23,8 @@ AWSRestSigner.prototype.canonizeAwzHeaders = function(xAmzHeaders) {
 		});
 		//创建lcHeaders;对xAmzHeader可枚举属性和方法的名称进行遍历，并将其转换为小写复制给h，如果h不是x-amz-date，
 		//则将xAmzHeaders[header]赋值给lcHeaders[h]
-
+		
+		
 		return Object.keys(lcHeaders)
 			.map(function(header) {
 				return header.toLowerCase();
@@ -36,6 +37,9 @@ AWSRestSigner.prototype.canonizeAwzHeaders = function(xAmzHeaders) {
 	} else { 
 		return '';
 	}
+		//1	将每个 HTTP 标头名称转换为小写。例如，“X-Amz-Date”改为“x-amz-date”。
+ 		//2	根据标头名称按字典顺序排列标头集。
+
 }
 
 AWSRestSigner.prototype.extractSubResources = function(queryString) {
